@@ -33,7 +33,6 @@ Route::prefix("admin")->group(function () {
         Route::get("company-list", [CompanyController::class, "companyList"])->name("company-list");
         Route::get("view-company-details/{id}", [CompanyController::class, "CompantDetails"])->name("view-company-details");
 
-        Route::get("search-company-by-status", [CompanyController::class, "searchCompanyByStatus"])->name("search-company-by-status");
     });
 
 });

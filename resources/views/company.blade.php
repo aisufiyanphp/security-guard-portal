@@ -10,9 +10,10 @@
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-md-8">
-                    <form action="{{ route('search-company-by-status') }}" method="get">
+                    <form action="{{ route('company-list') }}" method="get">
                         <div class="form-group">
                             <select class="form-control form-control-lg font-weight-bold border-dark" name="status">
+                                <option value="viewall">All</option>
                                 <option value="null">Filter Record.....</option>
                                 <option value="pending">Pending</option>
                                 <option value="process">Process</option>

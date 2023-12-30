@@ -73,7 +73,7 @@ class AdminController extends Controller
             if($admin->save()){
                 return $this->AdminLogout();
             }else{
-                Alert::toast("Technical Error! Password not change", 'danger')->position('top-end');
+                Alert::toast(" Technical Error! Password not change", 'danger')->position('top-end');
                 return back();
             }
         }else{
