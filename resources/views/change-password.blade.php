@@ -7,7 +7,7 @@
     <div class="col-md-6">
         <div class="card my-5">
             <div class="card-body">
-                <form action="{{ route('changePasswordProcess') }}" method="post">
+                <form action="{{ route('change-password-proccess') }}" method="post">
                     @csrf
                     <div class="form-group">
                         <label for="pswd">Current Password:</label>

@@ -30,6 +30,7 @@
     <!-- datatable css -->
 </head>
 <body>
+    @include('sweetalert::alert')
     <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
@@ -106,10 +107,10 @@
                 <div class="col-sm-4 clearfix">
                   <div class="user-profile pull-right">
                       <img class="avatar user-thumb" src="{{url('assets/images/author/avatar.png')}}" alt="avatar">
-                      <h4 class="user-name dropdown-toggle" data-toggle="dropdown">User Name <i class="fa fa-angle-down"></i></h4>
+                      <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ session::get("AdminName"); }}<i class="fa fa-angle-down"></i></h4>
                       <div class="dropdown-menu">
                           <a class="dropdown-item" href="#">Settings</a>
-                          <a class="dropdown-item" href="#">Change Password</a>
+                          <a class="dropdown-item" href="{{ route("change-password") }}">Change Password</a>
                           <a class="dropdown-item" href="{{ route("admin-logout") }}">Log Out</a>
                       </div>
                   </div>
