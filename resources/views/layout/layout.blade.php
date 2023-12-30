@@ -41,7 +41,7 @@
     <div class="sidebar-menu">
         <div class="sidebar-header">
             <div class="logo">
-                <a href="#" style="color:white;font-size:20px;">Project Title</a>
+                <a href="#" style="color:white;font-size:20px;">Security Portal</a>
             </div>
         </div>
         <div class="main-menu">
