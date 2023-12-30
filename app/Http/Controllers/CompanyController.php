@@ -10,8 +10,6 @@ class CompanyController extends Controller
 {
     protected $result;
     public function companySignup(Request $request){
-        echo Hash::make("admin@123");
-        exit(); 
         $validateInput = Validator::make($request->all(), [
                            "company_name" => "required|string|min:3",
                            "company_email" => "required|email|unique:companys,company_email",
@@ -22,10 +20,10 @@ class CompanyController extends Controller
         if($validateInput->fails()){
             $errMsg = $validateInput->errors()->first();
             $this->result["status"] = false;
-            $this->result["message"] = $errMsg;            
+            $this->result["message"] = $errMsg;
             return response()->json($this->result);
         }else{
-            
+
             $hashPassword = Hash::make($request->input("company_password"));
             $createCompany = Company::create([
                  "company_name" => $request->input("company_name"),
@@ -36,19 +34,41 @@ class CompanyController extends Controller
                  "company_city" => $request->input("company_city"),
                  "company_pincode" => $request->input("company_pincode"),
                  "company_address" => $request->input("company_address"),
-                 "company_document" => $request->input("company_document")                 
+                 "company_document" => $request->input("company_document")
             ]);
             if($createCompany){
                $this->result["status"] = true;
                $this->result["message"] = $request->input("company_name")." licence company successfully signup";
-               $this->result["company_data"] = $createCompany;            
+               $this->result["company_data"] = $createCompany;
             }else{
                $this->result["status"] = false;
-               $this->result["message"] = "Technical Error! signup process not complete"; 
+               $this->result["message"] = "Technical Error! signup process not complete";
             }
-            return response()->json($this->result); 
+            return response()->json($this->result);
         }
 
+    }
+
+    public function companyList(Request $request){
+        $companies = Company::orderBy("id", "desc")->get();
+       return view("company", compact("companies"));
+    }
+
+
+    public function CompantDetails(Request $request, $id){
+        $companydetails = Company::where("id",$id)->get();
+        return view("company-details",compact("companydetails"));
+    }
+
+    public function searchCompanyByStatus(Request $request){
+        $request->validate([
+            'status' => 'required',
+        ]);
+        $status = $request->input("status");
+        $companies = Company::when("company_status", function($query) use ($status){
+            return $query->where('company_status', $status);
+        })->get();
+        return view("company", compact("companies"));
     }
 
 }

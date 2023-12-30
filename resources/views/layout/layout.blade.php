@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="{{url('assets/css/metisMenu.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/slicknav.min.css')}}">
+
+     <!-- datatable css -->
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+     <!-- datatable css -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- others css -->
@@ -22,12 +31,7 @@
     <link rel="stylesheet" href="{{url('assets/css/responsive.css')}}">
     <!-- modernizr css -->
     <script src="{{url('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
-    <!-- datatable css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
-    <!-- datatable css -->
+
 </head>
 <body>
     @include('sweetalert::alert')
@@ -49,34 +53,8 @@
             <div class="menu-inner">
                 <nav>
                     <ul class="metismenu" id="menu">
-                        <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
-                            <ul class="collapse">
-                                <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Login</a></li>
-                                <li><a href="#">Reset Password</a></li>
-                                <li><a href="#">Forgot Password</a></li>
-                                <li><a href="#">Datatable</a></li>
-                                <li><a href="#">Form</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#"><i class="ti-map-alt"></i> <span>maps</span></a></li>
-                        <li>
-                            <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-align-left"></i> <span>Multi
-                                    level menu</span></a>
-                            <ul class="collapse">
-                                <li><a href="#">Item level (1)</a></li>
-                                <li><a href="#">Item level (1)</a></li>
-                                <li><a href="#" aria-expanded="true">Item level (1)</a>
-                                    <ul class="collapse">
-                                        <li><a href="#">Item level (2)</a></li>
-                                        <li><a href="#">Item level (2)</a></li>
-                                        <li><a href="#">Item level (2)</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Item level (1)</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="{{ route("dashboard") }}"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
+                        <li><a href="{{ route("company-list") }}"><i class="fa-solid fa-building"></i> <span>Companies</span></a></li>
                     </ul>
                 </nav>
             </div>
