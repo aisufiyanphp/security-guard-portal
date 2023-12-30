@@ -50,7 +50,19 @@ class CompanyController extends Controller
     }
 
     public function companyList(Request $request){
-        $companies = Company::orderBy("id", "desc")->get();
+
+        if(filled($request->input("status"))){
+            $status = $request->input("status");
+            if($request->input("status") == "viewall"){
+                return redirect()->route("company-list");
+            }else{
+            $companies = Company::when("company_status", function($query) use ($status){
+         return $query->where('company_status', $status);
+            })->get();
+        }
+        }else{
+            $companies = Company::orderBy("id", "desc")->get();
+        }
        return view("company", compact("companies"));
     }
 
@@ -58,17 +70,6 @@ class CompanyController extends Controller
     public function CompantDetails(Request $request, $id){
         $companydetails = Company::where("id",$id)->get();
         return view("company-details",compact("companydetails"));
-    }
-
-    public function searchCompanyByStatus(Request $request){
-        $request->validate([
-            'status' => 'required',
-        ]);
-        $status = $request->input("status");
-        $companies = Company::when("company_status", function($query) use ($status){
-            return $query->where('company_status', $status);
-        })->get();
-        return view("company", compact("companies"));
     }
 
 }

@@ -13,8 +13,8 @@
                     <form action="{{ route('company-list') }}" method="get">
                         <div class="form-group">
                             <select class="form-control form-control-lg font-weight-bold border-dark" name="status">
-                                <option value="viewall">All</option>
                                 <option value="null">Filter Record.....</option>
+                                <option value="viewall">All</option>
                                 <option value="pending">Pending</option>
                                 <option value="process">Process</option>
                                 <option value="active">Active</option>
