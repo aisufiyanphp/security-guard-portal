@@ -29,7 +29,7 @@ class AdminController extends Controller
               if(Hash::check($request->input("password"), $admin->password)){
                    Session::put("AdminLogin", true);
                    Session::put("AdminId", $admin->id);
-                   Session::put("app", $admin->name);
+                   Session::put("AdminName", $admin->name);
                    Session::regenerate();
                    return redirect()->route('dashboard');
 
