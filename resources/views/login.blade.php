@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico"> -->
+    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/themify-icons.css')}}">

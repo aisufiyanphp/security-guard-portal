@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico"> -->
+    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/themify-icons.css')}}">
@@ -110,8 +110,8 @@
                       <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ session::get("AdminName"); }}<i class="fa fa-angle-down"></i></h4>
                       <div class="dropdown-menu">
                           <a class="dropdown-item" href="#">Settings</a>
-                          <a class="dropdown-item" href="{{ route("change-password") }}">Change Password</a>
-                          <a class="dropdown-item" href="{{ route("admin-logout") }}">Log Out</a>
+                          <a class="dropdown-item" href="{{route('change-password')}}">Change Password</a>
+                          <a class="dropdown-item" href="{{route('admin-logout')}}">Log Out</a>
                       </div>
                   </div>
                 </div>
