@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+use App\Models\EmailToken;
+use App\Models\Company;
 
 class AdminController extends Controller
 {
@@ -81,4 +83,27 @@ class AdminController extends Controller
             return back();
         }
     }
+
+    public function verifyEmail($token){
+        $data = EmailToken::where("email_token", $token)->get();
+        if(count($data) > 0){
+            $companyData = Company::find($data[0]->company_id);
+            $companyData->email_verify = 1;
+            if($companyData->save()){
+               return view("email-verify-congrates", compact("companyData"));    
+            }else{
+               return "Technical Error!";    
+            }
+        }else{
+            return "Sorry worng token";
+        }
+    }
 }
+
+
+
+
+
+
+
+

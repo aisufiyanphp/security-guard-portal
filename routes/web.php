@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("verify-email/{token}", [AdminController::class, "verifyEmail"])->name("verify-email");
 Route::prefix("admin")->group(function () {
 
     Route::group(['middleware' =>['adminlogin']], function(){

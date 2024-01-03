@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post("company-signup", [CompanyController::class, "companySignup"]);
+Route::get("test-api", [CompanyController::class, "testApi"]);

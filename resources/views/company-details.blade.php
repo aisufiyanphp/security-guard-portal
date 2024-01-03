@@ -12,9 +12,9 @@
                       <li class="list-group-item font-weight-bold ">Name <span class="pull-right">{{ $companydetail->company_name }}</span></li>
                       <li class="list-group-item font-weight-bold">Email <span class="pull-right">{{ $companydetail->company_email }}
                      &nbsp;   @if($companydetail->email_verify == 1)
-                        <span class="badge  badge-success pull-right">Verify</span></big>
+                        <span class="badge  badge-success pull-right" style="font-size:24px">Verify</span></big>
                         @else
-                        <span class="badge  pull-right badge-danger ">unVerified</span>
+                        <span class="badge  pull-right badge-danger" style="font-size:12px">unVerified</span>
                         @endif</li></span></li>
                       <li class="list-group-item font-weight-bold">Mobile Number <span class="pull-right">{{ $companydetail->company_mobile_number }}</span></li>
                       <li class="list-group-item font-weight-bold">State <span class="pull-right">{{ $companydetail->company_state }}</span></li>

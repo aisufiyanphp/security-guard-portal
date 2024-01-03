@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use App\Models\Company;
+use App\Models\EmailToken;
+use App\Mail\WelcomeMail;
 
 class CompanyController extends Controller
 {
     protected $result;
-    public function companySignup(Request $request){
+    public function companySignup(Request $request){        
         $validateInput = Validator::make($request->all(), [
                            "company_name" => "required|string|min:3",
                            "company_email" => "required|email|unique:companys,company_email",
@@ -36,7 +40,11 @@ class CompanyController extends Controller
                  "company_address" => $request->input("company_address"),
                  "company_document" => $request->input("company_document")
             ]);
-            if($createCompany){
+            if($createCompany){              
+               $token = $this->getEmailToken();
+               EmailToken::create(["company_id"=>$createCompany->id, "email_token"=>$token]);
+               $companyDetail = ["name"=>$createCompany->company_name, "token"=>$token]; 
+               Mail::to("aisufiyanphp@gmail.com")->send(new WelcomeMail($companyDetail));
                $this->result["status"] = true;
                $this->result["message"] = $request->input("company_name")." licence company successfully signup";
                $this->result["company_data"] = $createCompany;
@@ -72,4 +80,15 @@ class CompanyController extends Controller
         return view("company-details",compact("companydetails"));
     }
 
+    public function testApi(){
+        $send = Mail::to("aisufiyanphp@gmail.com")->send(new WelcomeMail);
+        debug($send);
+    }
+
+    public function getEmailToken(){
+        do {
+            $token = uniqid(time());
+        }while(DB::table("email_token")->where("email_token", $token)->exists());
+        return $token;
+    }
 }
