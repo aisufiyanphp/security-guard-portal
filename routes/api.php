@@ -15,9 +15,7 @@ use App\Http\Controllers\CompanyController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post("company-signup", [CompanyController::class, "companySignup"]);
 Route::get("test-api", [CompanyController::class, "testApi"]);
+Route::post("company-signup", [CompanyController::class, "companySignup"]);
+Route::post("company-signin", [CompanyController::class, "companySignin"]);
+

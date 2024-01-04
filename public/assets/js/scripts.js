@@ -108,6 +108,7 @@
     }
     if ($('#dataTable3').length) {
         $('#dataTable3').DataTable({
+            ordering: false,
             responsive: true
         });
     }

@@ -1,9 +1,6 @@
 @extends('layout.layout')
-
 @section('title-tag', 'Company List')
-
 @section('header-title', 'Company List')
-
 @section('content')
 <div class="container-fluid px-0 mx-0">
     <div class="card">
@@ -29,11 +26,11 @@
             </div>
 
             <div class="data-tables datatable-dark">
-                <table id="dataTable2" class="text-center">
+                <table id="dataTable3" class="text-center">
                     <thead class="text-capitalize">
                         <tr>
                             <th>S.no</th>
-                            <th>Company</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Mobile Number</th>
                             <th>View Details</th>
@@ -44,7 +41,14 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $company->company_name }}</td>
-                            <td>{{ $company->company_email }}</td>
+                            <td>
+                                {{ $company->company_email }}
+                                @if($company->email_verify === 0)
+                                    <span class="badge badge-danger" style="font-size:12px">Unverified</span>
+                                @else
+                                    <span class="badge badge-success" style="font-size:12px">Verified</span>
+                                @endif
+                            </td>
                             <td>{{ $company->company_mobile_number}}</td>
                             <td><a href="{{ route('view-company-details', $company->id) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-eye"></i></a></td>
                         </tr>

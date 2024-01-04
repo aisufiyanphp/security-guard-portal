@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Company;
 use App\Models\EmailToken;
 use App\Mail\WelcomeMail;
@@ -55,6 +56,30 @@ class CompanyController extends Controller
             return response()->json($this->result);
         }
 
+    }
+
+    public function companySignin(Request $request){
+        $validateInput = Validator::make($request->all(), [
+             "email" => "required|email",
+             "password" => "required|min:5",
+        ])->stopOnFirstFailure();
+        if($validateInput->fails()){
+            $errMsg = $validateInput->errors()->first();
+            $this->result["status"] = false;
+            $this->result["message"] = $errMsg;
+            return response()->json($this->result);
+        }
+        
+        try{
+            if(Auth::guard('company')->attempt(["company_email"=>$request->input("email"), "company_password"=>$request->input("password")])){
+               echo "Authenticate"; 
+            }else{
+               echo "Not Authenticate";  
+            }
+        }catch(Exception $e){
+            debug($e->getMessage());
+        }
+        
     }
 
     public function companyList(Request $request){

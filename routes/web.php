@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
+use App\Models\Company;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,15 @@ use App\Http\Controllers\CompanyController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    Company::truncate();
+    echo "company database clear";
+    // try {
+    //     Artisan::call('passport:install');
+    //     $output = Artisan::output();
+    //     debug($output, false);
+    // } catch (\Exception $e) {
+    //     echo "Error " . $e->getMessage();
+    // }    
 });
 
 Route::get("verify-email/{token}", [AdminController::class, "verifyEmail"])->name("verify-email");

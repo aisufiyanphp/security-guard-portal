@@ -10,12 +10,17 @@
                 <ul class="list-group">
                     @foreach ($companydetails as $companydetail )
                       <li class="list-group-item font-weight-bold ">Name <span class="pull-right">{{ $companydetail->company_name }}</span></li>
-                      <li class="list-group-item font-weight-bold">Email <span class="pull-right">{{ $companydetail->company_email }}
-                     &nbsp;   @if($companydetail->email_verify == 1)
-                        <span class="badge  badge-success pull-right" style="font-size:24px">Verify</span></big>
-                        @else
-                        <span class="badge  pull-right badge-danger" style="font-size:12px">unVerified</span>
-                        @endif</li></span></li>
+                      <li class="list-group-item font-weight-bold">
+                          <span class="pull-left">
+                            Email &nbsp;&nbsp;
+                            @if($companydetail->email_verify === 0)
+                                <span class="badge badge-danger" style="font-size:12px">Unverified</span>
+                            @else
+                                <span class="badge badge-success" style="font-size:12px">Verified</span>
+                            @endif
+                          </span>
+                          <span class="pull-right">{{ $companydetail->company_email }}</span> 
+                      </li>                    
                       <li class="list-group-item font-weight-bold">Mobile Number <span class="pull-right">{{ $companydetail->company_mobile_number }}</span></li>
                       <li class="list-group-item font-weight-bold">State <span class="pull-right">{{ $companydetail->company_state }}</span></li>
                       <li class="list-group-item font-weight-bold">City<span class="pull-right">{{ $companydetail->company_city }}</span></li>
