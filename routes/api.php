@@ -18,4 +18,5 @@ use App\Http\Controllers\CompanyController;
 Route::get("test-api", [CompanyController::class, "testApi"]);
 Route::post("company-signup", [CompanyController::class, "companySignup"]);
 Route::post("company-signin", [CompanyController::class, "companySignin"]);
+Route::get("company-list", [CompanyController::class, "companies"]);
 

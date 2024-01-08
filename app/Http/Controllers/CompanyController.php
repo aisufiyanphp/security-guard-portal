@@ -21,6 +21,7 @@ class CompanyController extends Controller
                            "company_mobile_number" => "required|numeric|digits:10|unique:companys,company_mobile_number",
                            "company_password" => "required|min:5",
                            "company_address" => "required",
+                           "company_document" => "required"
                          ])->stopOnFirstFailure();
         if($validateInput->fails()){
             $errMsg = $validateInput->errors()->first();
@@ -28,8 +29,13 @@ class CompanyController extends Controller
             $this->result["message"] = $errMsg;
             return response()->json($this->result);
         }else{
-
             $hashPassword = Hash::make($request->input("company_password"));
+            $image = $request->file("company_document");
+        do {
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        }while(DB::table("companys")->where("company_document", $filename)->exists());         
+            $image->move(public_path('company_document/image'), $filename);
+
             $createCompany = Company::create([
                  "company_name" => $request->input("company_name"),
                  "company_email" => $request->input("company_email"),
@@ -39,13 +45,13 @@ class CompanyController extends Controller
                  "company_city" => $request->input("company_city"),
                  "company_pincode" => $request->input("company_pincode"),
                  "company_address" => $request->input("company_address"),
-                 "company_document" => $request->input("company_document")
+                 "company_document" => $filename
             ]);
             if($createCompany){              
                $token = $this->getEmailToken();
                EmailToken::create(["company_id"=>$createCompany->id, "email_token"=>$token]);
                $companyDetail = ["name"=>$createCompany->company_name, "token"=>$token]; 
-               Mail::to("aisufiyanphp@gmail.com")->send(new WelcomeMail($companyDetail));
+               Mail::to("laravelphp10@gmail.com")->send(new WelcomeMail($companyDetail));
                $this->result["status"] = true;
                $this->result["message"] = $request->input("company_name")." licence company successfully signup";
                $this->result["company_data"] = $createCompany;
@@ -55,7 +61,6 @@ class CompanyController extends Controller
             }
             return response()->json($this->result);
         }
-
     }
 
     public function companySignin(Request $request){
@@ -69,7 +74,6 @@ class CompanyController extends Controller
             $this->result["message"] = $errMsg;
             return response()->json($this->result);
         }
-        
         try{
             if(Auth::guard('company')->attempt(["company_email"=>$request->input("email"), "company_password"=>$request->input("password")])){
                echo "Authenticate"; 
@@ -83,7 +87,6 @@ class CompanyController extends Controller
     }
 
     public function companyList(Request $request){
-
         if(filled($request->input("status"))){
             $status = $request->input("status");
             if($request->input("status") == "viewall"){
@@ -99,14 +102,13 @@ class CompanyController extends Controller
        return view("company", compact("companies"));
     }
 
-
     public function CompantDetails(Request $request, $id){
         $companydetails = Company::where("id",$id)->get();
         return view("company-details",compact("companydetails"));
     }
 
     public function testApi(){
-        $send = Mail::to("aisufiyanphp@gmail.com")->send(new WelcomeMail);
+        $send = Mail::to("laravelphp10@gmail.com")->send(new WelcomeMail);
         debug($send);
     }
 
@@ -115,5 +117,22 @@ class CompanyController extends Controller
             $token = uniqid(time());
         }while(DB::table("email_token")->where("email_token", $token)->exists());
         return $token;
+    }
+
+    public function companies(){
+        $companies = Company::orderBy("id", "desc")->get();
+        if($companies->isEmpty()){
+            $this->result["status"] = false;
+            $this->result["message"] =" companies not exit ";
+            $this->result["company_data"] = [];           
+        }else{         
+               foreach($companies as $company){
+                $company->company_document =  url('company_document/image/'.$company->company_document);
+               }
+            $this->result["status"] = true;
+            $this->result["message"] = "companies get successfully ";
+            $this->result["company_data"] = $companies;         
+        }
+        return response()->json($this->result);
     }
 }
